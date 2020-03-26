@@ -7,12 +7,13 @@ ClassUnit::ClassUnit(QString name) :
 	_fields.resize(Configuration::ACCESS_MODIFIERS.size());
 }
 
-void ClassUnit::add(const std::shared_ptr<Unit>& unit, const Configuration::Flags& flags)
+QString ClassUnit::generateShift(const Configuration::UI& level) const
 {
-	quint32 accMod = Configuration::AccessModifier::PRIVATE;
+	QString result;
 
-	if (flags < quint32(Configuration::ACCESS_MODIFIERS.size()))
-		accMod = flags;
+	for (Configuration::UI i = 0; i < level; ++i)
+		result += '\t';
 
-	_fields[accMod].push_back(unit);
+	return result;
 }
+

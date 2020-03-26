@@ -1,19 +1,40 @@
-#ifndef CLASS_UNIT_H
-#define CLASS_UNIT_H
+#include "include/CPP/CPP_ClassUnit.h"
 
-#include "include/Unit.h"
 
-class ClassUnit : public Unit
+CPP_ClassUnit::CPP_ClassUnit(const QString& name) :
+	ClassUnit(name)
 {
-public:
-	explicit ClassUnit(QString name);
+	_fields.resize(0x03);
+}
 
-	virtual void add(const std::shared_ptr<Unit>& unit, const Configuration::Flags& flags) override;
-	virtual QString compile(const Configuration::UI& level) const override = 0;
+void CPP_ClassUnit::add(const std::shared_ptr<Unit>& unit, const Configuration::Flags& flags)
+{
+	quint32 accMod = Configuration::AccessModifier::PRIVATE;
 
-protected:
-	QString							_name;
-	QVector<Configuration::Fields>	_fields;
-};
+	if (flags < 0x03)
+		accMod = flags;
 
-#endif // CLASS_UNIT_H
+	_fields[accMod].push_back(unit);
+}
+
+QString CPP_ClassUnit::compile(const Configuration::UI& level) const
+{
+	QString result = generateShift(level) + "class " + _name + " {\n";
+
+	for (qint32 i = 0x0; i < 0x03; ++i)
+	{
+		if (_fields[i].isEmpty())
+			continue;
+
+		result += Configuration::ACCESS_MODIFIERS[i] + ":\n";
+
+		for (const auto& field : _fields[i])
+			result += field->compile(level + 1);
+
+		result += '\n';
+	}
+
+	result += generateShift(level) + "};\n";
+
+	return result;
+}

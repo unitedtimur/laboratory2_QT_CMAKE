@@ -23,6 +23,8 @@ set(project_headers
 	include/Unit.h
 
 	include/CPP/CPP_ClassUnit.h
+	include/CPP/CPP_MethodUnit.h
+	include/CPP/CPP_PrintUnit.h
 )
 
 set(project_sources 
@@ -32,6 +34,8 @@ set(project_sources
 	src/PrintUnit.cpp
 
 	include/CPP/CPP_ClassUnit.cpp
+	include/CPP/CPP_MethodUnit.cpp
+	include/CPP/CPP_PrintUnit.cpp
 )
 
 add_executable(${PROJECT_NAME}
