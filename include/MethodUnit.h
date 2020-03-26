@@ -1,18 +1,21 @@
 #ifndef METHOD_UNIT_H
 #define METHOD_UNIT_H
 
-#include <memory>
-#include <string>
+#include "include/Unit.h"
 
-using Flag = unsigned int;
-
-class MethodUnit
+class MethodUnit : public Unit
 {
 public:
-	virtual ~MethodUnit() = default;
-	virtual void add(const std::shared_ptr<MethodUnit>& printUnit, const Flag& flag) = 0;
-	virtual std::string compile(const Flag& flag) = 0;
-	virtual std::string generateShift(const Flag& flag) = 0;
+	explicit MethodUnit(QString name, QString returnType, const Configuration::Flags& flags);
+
+	virtual void add(const std::shared_ptr<Unit>& unit, const Configuration::Flags& /*flags*/ = 0) override;
+	virtual QString compile(const Configuration::UI& level) const override = 0;
+
+private:
+	QString					_name;
+	QString					_returnType;
+	Configuration::Flags	_flags;
+	Configuration::Fields	_body;
 };
 
 #endif // METHOD_UNIT_H

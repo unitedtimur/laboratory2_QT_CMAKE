@@ -18,6 +18,13 @@ namespace Configuration
 		PRIVATE
 	};
 
+	enum Modifier : quint32
+	{
+		STATIC	= 0x01,
+		CONST	= 0x02,
+		VIRTUAL	= 0x04
+	};
+
 	static const QVector<QString> ACCESS_MODIFIERS = {
 		"public",
 		"protected",
