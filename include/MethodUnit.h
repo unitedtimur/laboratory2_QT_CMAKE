@@ -11,7 +11,7 @@ public:
 	virtual void add(const std::shared_ptr<Unit>& unit, const Configuration::Flags& /*flags*/ = 0) override;
 	virtual QString compile(const Configuration::UI& level) const override = 0;
 
-private:
+protected:
 	QString					_name;
 	QString					_returnType;
 	Configuration::Flags	_flags;
