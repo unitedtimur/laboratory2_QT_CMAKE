@@ -9,9 +9,9 @@ namespace Configuration
 {
 	using Flags		= unsigned int;
 	using UI		= unsigned int;
-	using Fields = QVector<std::shared_ptr<Unit>>;
+	using Fields	= QVector<std::shared_ptr<Unit>>;
 
-	enum AccessModifier : int
+	enum AccessModifier : quint32
 	{
 		PUBLIC,
 		PROTECTED,
