@@ -6,9 +6,12 @@
 class ClassUnit : public Unit
 {
 public:
-	explicit ClassUnit(const QString& name);
+	explicit ClassUnit(QString name);
 
-private:
+	virtual void add(const std::shared_ptr<Unit>& unit, const Configuration::Flags& flags) override;
+	virtual QString compile(const Configuration::UI& level) const override = 0;
+
+protected:
 	QString							_name;
 	QVector<Configuration::Fields>	_fields;
 };
