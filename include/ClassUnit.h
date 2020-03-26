@@ -6,16 +6,11 @@
 class ClassUnit : public Unit
 {
 public:
-	explicit ClassUnit(QString name);
-
 	virtual void add(const std::shared_ptr<Unit>& unit, const Configuration::Flags& flags) override		= 0;
 	virtual QString compile(const Configuration::UI& level) const override								= 0;
 
 protected:
-	virtual QString generateShift(const Configuration::UI& level) const override;
-
-	QString							_name;
-	QVector<Configuration::Fields>	_fields;
+	virtual QString generateShift(const Configuration::UI& level) const override						= 0;
 };
 
 #endif // CLASS_UNIT_H

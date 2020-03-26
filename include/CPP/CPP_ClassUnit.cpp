@@ -2,7 +2,7 @@
 
 
 CPP_ClassUnit::CPP_ClassUnit(const QString& name) :
-	ClassUnit(name)
+	_name(name)
 {
 	_fields.resize(0x03);
 }
@@ -19,7 +19,7 @@ void CPP_ClassUnit::add(const std::shared_ptr<Unit>& unit, const Configuration::
 
 QString CPP_ClassUnit::compile(const Configuration::UI& level) const
 {
-	QString result = generateShift(level) + "class " + _name + " {\n";
+	QString result = this->generateShift(level) + "class " + _name + " {\n";
 
 	for (qint32 i = 0x0; i < 0x03; ++i)
 	{
@@ -34,7 +34,17 @@ QString CPP_ClassUnit::compile(const Configuration::UI& level) const
 		result += '\n';
 	}
 
-	result += generateShift(level) + "};\n";
+	result += this->generateShift(level) + "};\n";
+
+	return result;
+}
+
+QString CPP_ClassUnit::generateShift(const Configuration::UI& level) const
+{
+	QString result;
+
+	for (Configuration::UI i = 0; i < level; ++i)
+		result += '\t';
 
 	return result;
 }

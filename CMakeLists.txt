@@ -25,6 +25,7 @@ set(project_headers
 	include/CPP/CPP_ClassUnit.h
 	include/CPP/CPP_MethodUnit.h
 	include/CPP/CPP_PrintUnit.h
+	include/AbstractFactory.h
 )
 
 set(project_sources 

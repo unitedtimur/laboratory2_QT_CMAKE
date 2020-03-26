@@ -13,6 +13,7 @@ public:
 	QString compile(const Configuration::UI& level = 0) const override;
 
 protected:
+	QString generateShift(const Configuration::UI& level) const override;
 	QString							_name;
 	QVector<Configuration::Fields>	_fields;
 };
