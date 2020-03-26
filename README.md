@@ -1,0 +1,1 @@
+# laboratory2_QT_CMAKE
