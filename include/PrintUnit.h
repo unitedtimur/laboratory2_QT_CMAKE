@@ -1,6 +1,5 @@
 ﻿#pragma once
 
-#include <utility>
 #include "include/Unit.h"
 
 // Абстрактный класс ВыводЮнит ( не интерфейс! )

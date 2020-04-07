@@ -4,7 +4,6 @@
 
 class CSHARP_MethodUnit : public MethodUnit
 {
-
 public:
 	explicit CSHARP_MethodUnit(const std::string& name, const std::string& returnType, const Configuration::Flags& flags);
 	void add(const Configuration::Ptr& unit, const Configuration::Flags& flags) override;

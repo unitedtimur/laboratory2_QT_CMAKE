@@ -1,5 +1,4 @@
-#ifndef CONFIGURATION_H
-#define CONFIGURATION_H
+﻿#pragma once
 
 #include <memory>
 #include <vector>
@@ -7,6 +6,7 @@
 
 class Unit;
 
+// Конфигурационный "файл" для упрощения работы с фабрикой
 namespace Configuration
 {
 	typedef std::shared_ptr<Unit> Ptr;
@@ -46,8 +46,4 @@ namespace Configuration
 		"protected internal",
 		"private protected"
 	};
-
-
 }
-
-#endif // CONFIGURATION_H

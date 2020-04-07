@@ -4,7 +4,6 @@
 
 class CPP_MethodUnit : public MethodUnit
 {
-
 public:
 	explicit CPP_MethodUnit(const std::string& name, const std::string& returnType, const Configuration::Flags& flags);
 	void add(const Configuration::Ptr& unit, const Configuration::Flags& flags) override;
