@@ -1,28 +1,24 @@
-#ifndef UNIT_H
-#define UNIT_H
+#pragma once
 
-#include <memory>
 #include "include/Configuration.h"
 
 class Unit
 {
 public:
-	virtual ~Unit() = default;
-	virtual void add(const std::shared_ptr<Unit>& unit, const Configuration::Flags& flags) = 0;
-	virtual QString compile(const Configuration::UI& level = 0) const = 0;
+	virtual ~Unit() noexcept = default;
+	virtual void add(const Configuration::Ptr& unit, const Configuration::Flags& flags = 0)	= 0;
+	virtual std::string compile(const Configuration::UI& level = 0) const						= 0;
 
 protected:
-	virtual QString generateShift(const Configuration::UI& level) const;
+	virtual std::string generateShift(const Configuration::UI& level) const;
 };
 
-inline QString Unit::generateShift(const Configuration::UI& level) const
+inline std::string Unit::generateShift(const Configuration::UI& level) const
 {
-	QString result;
+	std::string result;
 
 	for (Configuration::UI i = 0; i < level; ++i)
 		result += '\t';
 
 	return result;
 }
-
-#endif // UNIT_H
