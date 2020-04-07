@@ -1,20 +1,21 @@
-#ifndef CPP_PRINT_UNIT_H
-#define CPP_PRINT_UNIT_H
+#pragma once
 
 #include "include/PrintUnit.h"
 
-class CPP_PrintUnit : PrintUnit
+class CPP_PrintUnit : public PrintUnit
 {
 public:
-	explicit CPP_PrintUnit(QString text);
-	~CPP_PrintUnit() override = default;
-	QString compile(const Configuration::UI& level = 0) const override;
-
-protected:
-	QString generateShift(const Configuration::UI& level) const override;
-
-	private:
-	QString _text;
+	explicit CPP_PrintUnit(const std::string& text);
+	void add(const Configuration::Ptr& unit, const Configuration::Flags& flags) override {}
+	std::string compile(const Configuration::UI& level) const override;
 };
 
-#endif // CPP_PRINT_UNIT_H
+inline CPP_PrintUnit::CPP_PrintUnit(const std::string& text) :
+	PrintUnit(text)
+{
+}
+
+inline std::string CPP_PrintUnit::compile(const Configuration::UI& level) const
+{
+	return generateShift(level) + "printf( \"" + _text + "\" );\n";
+}

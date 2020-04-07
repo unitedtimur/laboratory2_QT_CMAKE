@@ -1,16 +1,27 @@
-#ifndef CLASS_UNIT_H
-#define CLASS_UNIT_H
+﻿#pragma once
 
+#include <utility>
 #include "include/Unit.h"
 
+// Абстрактный класс Класса ( не интерфейс! )
 class ClassUnit : public Unit
 {
 public:
-	virtual void add(const std::shared_ptr<Unit>& unit, const Configuration::Flags& flags) override		= 0;
-	virtual QString compile(const Configuration::UI& level) const override								= 0;
+	explicit ClassUnit(std::string name);
+	virtual ~ClassUnit() noexcept = default;
+
+	virtual void add(const Configuration::Ptr& unit, const Configuration::Flags& flags) override	= 0;
+	virtual std::string compile(const Configuration::UI& level = 0) const override					= 0;
 
 protected:
-	virtual QString generateShift(const Configuration::UI& level) const override						= 0;
+	// Имя класса
+	std::string _name;
+
+	// Поля класса public / protected и т.д.
+	Configuration::Fields _fields;
 };
 
-#endif // CLASS_UNIT_H
+inline ClassUnit::ClassUnit(std::string name) :
+	_name(std::move(name))
+{
+}

@@ -1,13 +1,34 @@
-#ifndef METHOD_UNIT_H
-#define METHOD_UNIT_H
+﻿#pragma once
 
 #include "include/Unit.h"
 
+// Абстрактный класс Метода ( не интерфейс! )
 class MethodUnit : public Unit
 {
 public:
-	virtual void add(const std::shared_ptr<Unit>& unit, const Configuration::Flags& flags = 0) override = 0;
-	virtual QString compile(const Configuration::UI& level) const override								= 0;
+	explicit MethodUnit(std::string name, std::string returnType, const Configuration::Flags& flags);
+	virtual ~MethodUnit() noexcept = default;
+
+	void add(const Configuration::Ptr&, const Configuration::Flags& flags) override = 0;
+	std::string compile(const Configuration::UI& level) const override				= 0;
+
+protected:
+	// Имя метода
+	std::string _name;
+
+	// Возвращаемый тип void, int и т.д.
+	std::string _returnType;
+
+	// Модификаторы доступа метода
+	Configuration::Flags _flags;
+
+	// Тело метода
+	Configuration::Body _body;
 };
 
-#endif // METHOD_UNIT_H
+inline MethodUnit::MethodUnit(std::string name, std::string returnType, const Configuration::Flags& flags) :
+	_name(std::move(name)),
+	_returnType(std::move(returnType)),
+	_flags(flags)
+{
+}

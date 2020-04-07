@@ -1,34 +1,50 @@
 #ifndef CONFIGURATION_H
 #define CONFIGURATION_H
 
-#include <QVector>
+#include <memory>
+#include <vector>
+#include <string>
 
 class Unit;
 
 namespace Configuration
 {
+	typedef std::shared_ptr<Unit> Ptr;
 	using Flags		= unsigned int;
 	using UI		= unsigned int;
-	using Fields	= QVector<std::shared_ptr<Unit>>;
+	using Fields	= std::vector<std::vector<std::shared_ptr<Unit>>>;
+	using Body		= std::vector<std::shared_ptr<Unit>>;
 
-	enum AccessModifier : quint32
+	enum AccessModifier : unsigned
 	{
-		PUBLIC,
+		PUBLIC = 0x00,
 		PROTECTED,
-		PRIVATE
+		PRIVATE,
+		INTERNAL,
+		PROTECTED_INTERNAL,
+		PRIVATE_PROTECTED
 	};
 
-	enum Modifier : quint32
+	enum Modifier : unsigned
 	{
-		STATIC	= 0x01,
-		CONST	= 0x02,
-		VIRTUAL	= 0x04
+		STATIC			= 0x01,
+		CONST			= 0x02,
+		VIRTUAL			= 0x04,
+		ABSTRACT		= 0x08,
+		ASYNC			= 0x10,
+		UNSAFE			= 0x20,
+		SEALED			= 0x40,
+		FINAL			= SEALED,
+		SYNCHRONIZED	= 0x80
 	};
 
-	static const QVector<QString> ACCESS_MODIFIERS = {
+	static const std::vector<std::string> ACCESS_MODIFIERS = {
 		"public",
 		"protected",
-		"private"
+		"private",
+		"internal",
+		"protected internal",
+		"private protected"
 	};
 
 
