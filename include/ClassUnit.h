@@ -21,6 +21,7 @@ protected:
 	Configuration::Fields _fields;
 };
 
+// std::move; r-value ссылки позволяют не копировать лишние байты памяти (см. PrintUnit.h)
 inline ClassUnit::ClassUnit(std::string name) :
 	_name(std::move(name))
 {
