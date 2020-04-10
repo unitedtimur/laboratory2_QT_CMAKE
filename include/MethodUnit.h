@@ -6,9 +6,13 @@
 class MethodUnit : public Unit
 {
 public:
+	// Конструктор принимает имя, возвращаемый тип и флаги модификаторов
 	explicit MethodUnit(std::string name, std::string returnType, const Configuration::Flags& flags);
+
+	// Деструктор по аналогии в Unit.h
 	virtual ~MethodUnit() noexcept = default;
 
+	// Тоже самое см. в Unit.h
 	void add(const Configuration::Ptr&, const Configuration::Flags& flags) override = 0;
 	std::string compile(const Configuration::UI& level) const override				= 0;
 
