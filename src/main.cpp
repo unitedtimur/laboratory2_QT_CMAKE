@@ -3,6 +3,7 @@
 #include "include/CPP/CPP_AbstractFactory.h"
 #include "include/CSHARP/CSHARP_AbstractFactory.h"
 #include "include/JAVA/JAVA_AbstractFactory.h"
+#include "include/Tests.h"
 
 std::string generate();
 
@@ -18,60 +19,86 @@ int main(int argc, char* argv[])
 
 	std::cout << generate() << std::endl;
 
+	Tests tests;
+
+	/*std::ofstream file("test.txt");
+
+	for (const auto& it : generate())
+	{
+		file << it;
+	}
+
+	file.close();*/
+
 	// Нажмите 'enter'
 	return getchar();
 }
 
 std::string generate()
 {
-	std::string result;
-
-	for (int i = 0; i < 3; ++i)
+	try
 	{
-		std::shared_ptr<AbstractFactory> factory;
+		std::string result;
 
-		switch (i)
+		for (int i = 0; i < 3; ++i)
 		{
-			// создаём фабрику языка c++
-		case 0:
-			factory = std::make_shared<CPP_AbstractFactorty>();
-			break;
+			std::shared_ptr<AbstractFactory> factory;
 
-			// создаём фабрику языка c#
-		case 1:
-			factory = std::make_shared<CSHARP_AbstractFactory>();
-			break;
+			switch (i)
+			{
+				// создаём фабрику языка c++
+			case 0:
+				factory = std::make_shared<CPP_AbstractFactorty>();
+				break;
 
-			// создаём фабрику языка java
-		case 2:
-			factory = std::make_shared<JAVA_AbstractFactory>();
-			break;
+				// создаём фабрику языка c#
+			case 1:
+				factory = std::make_shared<CSHARP_AbstractFactory>();
+				break;
 
-			// невозможная ситуация для данного цикла, но в случае если попадём сюда, то ничего критичного не случится
-			// этот аттрибут используются в основном для case`ов сообщающий компилятору, что break не обязателен
-		default: [[__fallthrough]];
-		}
+				// создаём фабрику языка java
+			case 2:
+				factory = std::make_shared<JAVA_AbstractFactory>();
+				break;
 
-		// smart ptr класса (инициализируем)
-		std::shared_ptr<ClassUnit> myClass(factory->CreateClassUnit("MyClass"));
-		// smart ptr метода (инициализируем)
-		std::shared_ptr<Unit> method(factory->CreateMethodUnit("testFunc4", "void", Configuration::Modifier::STATIC));
+				// невозможная ситуация для данного цикла, но в случае если попадём сюда, то ничего критичного не случится
+				// этот аттрибут используются в основном для case`ов сообщающий компилятору, что break не обязателен
+			default: [[__fallthrough]];
+			}
 
-		// добавляем в класс юниты (функции)
-		myClass->add(factory->CreateMethodUnit("testFunc1", "void", 0), Configuration::AccessModifier::PUBLIC);
-		myClass->add(factory->CreateMethodUnit("testFunc2", "void", Configuration::Modifier::STATIC), Configuration::AccessModifier::PRIVATE);
-		myClass->add(factory->CreateMethodUnit("testFunc3", "void", Configuration::Modifier::VIRTUAL | Configuration::Modifier::CONST), Configuration::AccessModifier::PUBLIC);
+			// smart ptr класса (инициализируем)
+			std::shared_ptr<ClassUnit> myClass(factory->CreateClassUnit("MyClass"));
+			//std::shared_ptr<ClassUnit> myClass(nullptr);
+			// smart ptr метода (инициализируем)
+			//std::shared_ptr<MethodUnit> method(nullptr);
+			std::shared_ptr<MethodUnit> method(factory->CreateMethodUnit("testFunc4", "void", Configuration::Modifier::STATIC));
 
-		// производим дополнение в методе как добавление вывода текста
-		method->add(factory->CreatePrintOperatorUnit("Hello, UnitedTimur! ;)"));
+			// добавляем в класс юниты (функции)
+			if (myClass)
+			{
+				myClass->add(factory->CreateMethodUnit("testFunc1", "void", 0), Configuration::AccessModifier::PUBLIC);
+				myClass->add(factory->CreateMethodUnit("testFunc2", "void", Configuration::Modifier::STATIC), Configuration::AccessModifier::PRIVATE);
+				myClass->add(factory->CreateMethodUnit("testFunc3", "void", Configuration::Modifier::VIRTUAL | Configuration::Modifier::CONST), Configuration::AccessModifier::PUBLIC);
+			}
 
-		// добавляем этот метод в класс
-		myClass->add(method, Configuration::AccessModifier::PROTECTED);
+			if (method)
+				// производим дополнение в методе как добавление вывода текста
+				method->add(factory->CreatePrintOperatorUnit("Hello, UnitedTimur! ;)"), 0x0);
 
-		// производим генерацию
-		result += myClass->compile() + '\n';
+			if (myClass)
+				// добавляем этот метод в класс
+				myClass->add(method, Configuration::AccessModifier::PROTECTED);
+
+			if (myClass)
+				// производим генерацию
+				result += myClass->compile() + '\n';
+		} 
+
+		// возвращаем результат
+		return result;
 	}
-
-	// возвращаем результат
-	return result;
+	catch (const std::exception& ex)
+	{
+		return std::string("An error has appeared in " + std::string(ex.what()));
+	}
 }

@@ -18,6 +18,9 @@ inline CPP_MethodUnit::CPP_MethodUnit(const std::string& name, const std::string
 
 inline void CPP_MethodUnit::add(const Configuration::Ptr& unit, const Configuration::Flags& /*flags*/)
 {
+	if (unit == nullptr)
+		THROW(__FUNCTION__);
+
 	// В тело метода добавляем юнит
 	_body.push_back(unit);
 }
