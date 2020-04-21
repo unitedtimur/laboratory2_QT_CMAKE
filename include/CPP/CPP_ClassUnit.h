@@ -22,6 +22,9 @@ inline CPP_ClassUnit::CPP_ClassUnit(const std::string& name) :
 
 inline void CPP_ClassUnit::add(const Configuration::Ptr& unit, const Configuration::UI& flags)
 {
+	if (unit == nullptr)
+		THROW(__FUNCTION__);
+
 	// Выставляем модификатор доступа на случай ошибки ( по умолчанию вставим в private )
 	unsigned accessModifier = Configuration::AccessModifier::PRIVATE;
 

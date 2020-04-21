@@ -30,6 +30,7 @@ protected:
 	Configuration::Body _body;
 };
 
+// Конструктор с std::move; r-value ссылки позволяют не копировать лишние байты. Непосредственное владение. Флаги доступа
 inline MethodUnit::MethodUnit(std::string name, std::string returnType, const Configuration::Flags& flags) :
 	_name(std::move(name)),
 	_returnType(std::move(returnType)),

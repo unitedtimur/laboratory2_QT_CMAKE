@@ -34,6 +34,9 @@ inline JAVA_ClassUnit::JAVA_ClassUnit(const std::string& name, const Configurati
 
 inline void JAVA_ClassUnit::add(const Configuration::Ptr& unit, const Configuration::UI& flags)
 {
+	if (unit == nullptr)
+		THROW(__FUNCTION__);
+
 	// По аналогии с CPP_ClassUnit.h
 	unsigned accessModifier = Configuration::AccessModifier::PRIVATE;
 
