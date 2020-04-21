@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 
+#define THROW(message) throw std::exception(message, -0x01)
+
 /*
  * Forward declararion ( на русском это что-то типо такого: первочаначальное определие класса ) 
  * Делают это для того, чтобы не происходило лишней компиляции и не приходилось бы писать #include "Unit.h"

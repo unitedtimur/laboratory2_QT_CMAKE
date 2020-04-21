@@ -18,6 +18,9 @@ inline CSHARP_MethodUnit::CSHARP_MethodUnit(const std::string& name, const std::
 
 inline void CSHARP_MethodUnit::add(const Configuration::Ptr& unit, const Configuration::Flags& /*flags*/)
 {
+	if (unit == nullptr)
+		THROW(__FUNCTION__);
+
 	// Добавление юнита в тело метода
 	_body.push_back(unit);
 }

@@ -18,6 +18,9 @@ inline JAVA_MethodUnit::JAVA_MethodUnit(const std::string& name, const std::stri
 
 inline void JAVA_MethodUnit::add(const Configuration::Ptr& unit, const Configuration::Flags& /*flags*/)
 {
+	if (unit == nullptr)
+		THROW(__FUNCTION__);
+
 	// Добавляем в тело метода юнит
 	_body.push_back(unit);
 }

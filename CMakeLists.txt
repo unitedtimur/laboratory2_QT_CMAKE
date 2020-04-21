@@ -14,6 +14,7 @@ set(project_headers
 	include/MethodUnit.h
 	include/PrintUnit.h
 	include/Configuration.h
+	include/Tests.h
 
 	include/AbstractFactory.h
 	
@@ -38,6 +39,7 @@ set(project_headers
 
 set(project_sources 
 	src/main.cpp
+	src/Tests.cpp
 )
 
 add_executable(${PROJECT_NAME}
