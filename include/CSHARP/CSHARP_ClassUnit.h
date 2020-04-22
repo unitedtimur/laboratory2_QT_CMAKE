@@ -35,7 +35,7 @@ inline void CSHARP_ClassUnit::add(const Configuration::Ptr& unit, const Configur
 		accessModifier = flags;
 
 	_fields[accessModifier].push_back(unit);
-;}
+}
 
 inline std::string CSHARP_ClassUnit::compile(const Configuration::UI& level) const
 {

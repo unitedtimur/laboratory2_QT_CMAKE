@@ -21,15 +21,6 @@ int main(int argc, char* argv[])
 
 	Tests tests;
 
-	/*std::ofstream file("test.txt");
-
-	for (const auto& it : generate())
-	{
-		file << it;
-	}
-
-	file.close();*/
-
 	// Нажмите 'enter'
 	return getchar();
 }
